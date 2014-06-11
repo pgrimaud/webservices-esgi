@@ -98,7 +98,11 @@ function AddComment($id_area, $author, $content, $rate)
 	$comment->addChild('content', $content);
 	$comment->addChild('rate', $rate);
 
-	file_put_contents('data/comments.xml', $xml->asXML());
+	try {
+		file_put_contents('data/comments.xml', $xml->asXML());
+	} catch(Exception $e) {
+		return $e;
+	}
 
 	$result = array(
 		'id_area'	=> $id_area,
