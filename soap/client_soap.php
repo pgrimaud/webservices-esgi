@@ -1,6 +1,6 @@
 <?php
 // require_once '../lib/nusoap.php';
-require_once '../lib/config.php';
+require_once 'lib/config.php';
 
 $namespace = URL_WS_SOAP;
 // $param = array("name" => "Monotosh Roy");
