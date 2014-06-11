@@ -19,7 +19,7 @@ class Rest{
 		}
 	}
 	
-	public function getCountry(){
+	public function getCountries(){
 		
 		if(sizeof($this->params) != 3)
 			$this->error('Wrong parameters');
@@ -29,7 +29,7 @@ class Rest{
 		if(!in_array($this->params[2], $continents))
 			$this->error('Unknow continent');
 		
-		Connexion::getInstance()->query("SELECT * FROM country WHERE continent = '".addslashes($this->params[2])."' ORDER BY id");
+		Connexion::getInstance()->query("SELECT * FROM country WHERE continent = '".addslashes($this->params[2])."' ORDER BY name");
 		$countries = Connexion::getInstance()->fetchAll();
 		
 		$xml = new SimpleXMLElement($this->header.'<countries></countries>');
@@ -44,7 +44,7 @@ class Rest{
 		
 	}
 	
-	public function getTown(){
+	public function getTowns(){
 		
 		if(sizeof($this->params) != 3)
 			$this->error('Wrong parameters');
@@ -54,7 +54,7 @@ class Rest{
 		$id = Connexion::getInstance()->result();
 
 		if($id == '')
-			$this->error('Unknow country n°'.addslashes($this->params[2]));
+			$this->error('Unknow country ID '.addslashes($this->params[2]));
 				
 		Connexion::getInstance()->query("SELECT * FROM town WHERE country_id = '".addslashes($this->params[2])."' ORDER BY id");
 		$towns = Connexion::getInstance()->fetchAll();
@@ -71,7 +71,7 @@ class Rest{
 		
 	}
 	
-	public function getPlace(){
+	public function getPlaces(){
 		
 		if(sizeof($this->params) != 3)
 			$this->error('Wrong parameters');
@@ -81,7 +81,7 @@ class Rest{
 		$id = Connexion::getInstance()->result();
 
 		if($id == '')
-			$this->error('Unknow town n°'.addslashes($this->params[2]));
+			$this->error('Unknow town ID '.addslashes($this->params[2]));
 				
 		Connexion::getInstance()->query("SELECT * FROM place WHERE town_id = '".addslashes($this->params[2])."' ORDER BY id");
 		$places = Connexion::getInstance()->fetchAll();
@@ -96,6 +96,10 @@ class Rest{
 		
 		echo $xml->asXML();
 		
+	}
+	
+	public function postPlaces(){
+	
 	}
 	
 	public function error($message){
