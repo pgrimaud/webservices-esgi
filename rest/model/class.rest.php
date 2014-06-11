@@ -172,8 +172,80 @@ class Rest{
 		echo $xml->asXML();
 		
 	}
+	
+	public function getPlaces(){
 		
+		if(sizeof($this->params) != 2)
+			$this->error('Wrong parameters');
+				
+		$filters = array('name', 'address', 'town_id');
+		
+		$error = false;
+		$filter = ' WHERE ';
+		$hasfilter = false;
+		
+		if(sizeof($this->get) > 0){
+			foreach($this->get as $field => $value){
+				if(!in_array($field, $filters)){
+					$error = 'Unknow filter : '.$field;
+				}else{
+					$filter.= " ".addslashes($field)." = '".addslashes($value)."' AND ";
+					$hasfilter = true;
+				}
+			}
+		}
+		
+		$filter = substr($filter, 0, -4);
+		
+		if($error != false)
+			$this->error($error);
+		
+		if($hasfilter == true)
+			$hasfilter = $filter;
+		
+		Connexion::getInstance()->query("SELECT * FROM place ".$hasfilter);
+		$places = Connexion::getInstance()->fetchAll();
+		
+		$xml = new SimpleXMLElement($this->header.'<places></places>');
+		
+		foreach($places as $place){
+			$cr = $xml->addChild('place');
+			foreach($place as $field => $value)
+				$cr->addChild($field, $value);
+		}
+		
+		echo $xml->asXML();
+		
+	}
+	
 	public function getPlace(){
+		
+		if(sizeof($this->params) != 3)
+			$this->error('Wrong parameters');
+				
+		//check if place exist
+		Connexion::getInstance()->query("SELECT id FROM place WHERE id = '".addslashes($this->params[2])."'");
+		$id = Connexion::getInstance()->result();
+		
+		if($id == '')
+			$this->error('Unknow place ID '.addslashes($this->params[2]));
+		
+		Connexion::getInstance()->query("SELECT * FROM place WHERE id = '".addslashes($this->params[2])."' ORDER BY name");
+		$places = Connexion::getInstance()->fetchAll();
+		
+		$xml = new SimpleXMLElement($this->header.'<places></places>');
+		
+		foreach($places as $place){
+			$cr = $xml->addChild('place');
+			foreach($place as $field => $value)
+				$cr->addChild($field, $value);
+		}
+		
+		echo $xml->asXML();
+		
+	}
+		
+	/*public function getPlace(){
 		
 		if(sizeof($this->params) != 3)
 			$this->error('Wrong parameters');
@@ -198,7 +270,7 @@ class Rest{
 		
 		echo $xml->asXML();
 		
-	}
+	}*/
 	
 	public function postPlaces(){
 	
