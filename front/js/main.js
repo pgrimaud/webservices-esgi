@@ -219,12 +219,12 @@ function setWriteReviewForm() {
 **/
 
 function loadCountries(id){
-
+	$('#countries-div select').attr('disabled', 'disabled');
 	$('#countries-div select').load('./handler/getcountries.php?continent='+id,
         function(response) {
             setContentAjaxFlow();
-            //window[page + 'Callback']();
+            $('#countries-div select').removeAttr('disabled');
         }
     );
-	$('#countries-div').removeClass('hidden');
+	
 }

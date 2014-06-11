@@ -15,21 +15,21 @@
                 <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group hidden" id="countries-div">
+            <div class="form-group" id="countries-div">
                 <label for="search-country" class="control-label">
                     Country
                 </label>
-                <select class="form-control" id="search-country" name="search-country" id="">
+                <select class="form-control" id="search-country" name="search-country" disabled="disabled">
                     <option value="">
                         &mdash;&nbsp;&nbsp;Select a country&nbsp;&nbsp;&mdash;
                     </option>
                 </select>
             </div>
-            <div class="form-group hidden">
+            <div class="form-group">
                 <label for="search-town" class="control-label">
                     Town
                 </label>
-                <select class="form-control" id="search-town" name="search-town">
+                <select class="form-control" id="search-town" name="search-town" disabled="disabled">
                     <option value="">
                         &mdash;&nbsp;&nbsp;Select a town&nbsp;&nbsp;&mdash;
                     </option>
