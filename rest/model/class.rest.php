@@ -101,19 +101,37 @@ class Rest{
 		
 	}
 	
-	public function getTown(){
+	public function getTowns(){
 		
-		if(sizeof($this->params) != 3)
+		if(sizeof($this->params) != 2)
 			$this->error('Wrong parameters');
-		
-		//check if country exist
-		Connexion::getInstance()->query("SELECT id FROM town WHERE country_id = '".addslashes($this->params[2])."'");
-		$id = Connexion::getInstance()->result();
-
-		if($id == '')
-			$this->error('Unknow country ID '.addslashes($this->params[2]));
 				
-		Connexion::getInstance()->query("SELECT * FROM town WHERE country_id = '".addslashes($this->params[2])."' ORDER BY id");
+		$filters = array('name', 'population', 'country_id');
+		
+		$error = false;
+		$filter = ' WHERE ';
+		$hasfilter = false;
+		
+		if(sizeof($this->get) > 0){
+			foreach($this->get as $field => $value){
+				if(!in_array($field, $filters)){
+					$error = 'Unknow filter : '.$field;
+				}else{
+					$filter.= " ".addslashes($field)." = '".addslashes($value)."' AND ";
+					$hasfilter = true;
+				}
+			}
+		}
+		
+		$filter = substr($filter, 0, -4);
+		
+		if($error != false)
+			$this->error($error);
+		
+		if($hasfilter == true)
+			$hasfilter = $filter;
+		
+		Connexion::getInstance()->query("SELECT * FROM town ".$hasfilter);
 		$towns = Connexion::getInstance()->fetchAll();
 		
 		$xml = new SimpleXMLElement($this->header.'<towns></towns>');
@@ -128,6 +146,33 @@ class Rest{
 		
 	}
 	
+	public function getTown(){
+		
+		if(sizeof($this->params) != 3)
+			$this->error('Wrong parameters');
+				
+		//check if town exist
+		Connexion::getInstance()->query("SELECT id FROM town WHERE id = '".addslashes($this->params[2])."'");
+		$id = Connexion::getInstance()->result();
+		
+		if($id == '')
+			$this->error('Unknow town ID '.addslashes($this->params[2]));
+		
+		Connexion::getInstance()->query("SELECT * FROM town WHERE id = '".addslashes($this->params[2])."' ORDER BY name");
+		$towns = Connexion::getInstance()->fetchAll();
+		
+		$xml = new SimpleXMLElement($this->header.'<towns></towns>');
+		
+		foreach($towns as $town){
+			$cr = $xml->addChild('town');
+			foreach($town as $field => $value)
+				$cr->addChild($field, $value);
+		}
+		
+		echo $xml->asXML();
+		
+	}
+		
 	public function getPlace(){
 		
 		if(sizeof($this->params) != 3)
