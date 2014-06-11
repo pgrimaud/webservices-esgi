@@ -4,7 +4,7 @@
 *
 */
 
-define('FRONT', $_SERVER['DOCUMENT_ROOT'] . 'EB1/XML/');
+define('FRONT', $_SERVER['DOCUMENT_ROOT'] . '/');
 
 /**
 *   Load a resource
@@ -26,3 +26,26 @@ function loadResource($type, $resource, $data = NULL)
     if ($path)
         require_once $path;
 }
+
+function callWS($uri, $headers = false, $params = false) {
+
+    $ch = curl_init($uri);
+
+    if ($headers)
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    if ($params) {
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+    }
+
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $sCurlResponse = curl_exec($ch);
+
+    curl_close($ch);
+
+    return $sCurlResponse;
+  }

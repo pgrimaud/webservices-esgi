@@ -213,3 +213,18 @@ function setWriteReviewForm() {
         return false;    
     });
 }
+
+/** 
+	Search page
+**/
+
+function loadCountries(id){
+
+	$('#countries-div select').load('./handler/getcountries.php?continent='+id,
+        function(response) {
+            setContentAjaxFlow();
+            //window[page + 'Callback']();
+        }
+    );
+	$('#countries-div').removeClass('hidden');
+}

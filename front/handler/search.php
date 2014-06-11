@@ -11,7 +11,11 @@ require_once '../lib/core.php';
     // Set a default Continent
     $data['search'] = array(
         'continent' => array(
-            '1' => 'Africa'
+            1 => 'Africa', 
+						2 => 'America', 
+						3 => 'Asia', 
+						4 => 'Europe', 
+						5 => 'Oceania', 
         )
     );
     

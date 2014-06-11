@@ -24,12 +24,12 @@ class Rest{
 		if(sizeof($this->params) != 3)
 			$this->error('Wrong parameters');
 		
-		$continents = array('europe', 'afrique', 'oceanie', 'amerique', 'asie');
+		$continents = array( 4 => 'europe', 1 => 'africa', 5 => 'oceania', 2 => 'america', 3 => 'asia');
 		
-		if(!in_array($this->params[2], $continents))
+		if(!isset($continents[$this->params[2]]))
 			$this->error('Unknow continent');
 		
-		Connexion::getInstance()->query("SELECT * FROM country WHERE continent = '".addslashes($this->params[2])."' ORDER BY name");
+		Connexion::getInstance()->query("SELECT * FROM country WHERE continent = '".addslashes($continents[$this->params[2]])."' ORDER BY name");
 		$countries = Connexion::getInstance()->fetchAll();
 		
 		$xml = new SimpleXMLElement($this->header.'<countries></countries>');

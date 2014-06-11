@@ -6,7 +6,7 @@
                 <label for="search-continent" class="control-label">
                     Continent
                 </label>
-                <select class="form-control" id="search-continent" name="search-continent">
+                <select class="form-control" id="search-continent" name="search-continent" onchange="loadCountries($(this, 'option:selected').val())">
                     <option value="">&mdash;&nbsp;&nbsp;Select a continent&nbsp;&nbsp;&mdash;</option>
                 <?php foreach ($data['search']['continent'] as $continentId => $continentName) : ?>
                     <option value="<?php echo $continentId; ?>">
@@ -15,11 +15,11 @@
                 <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group hidden">
+            <div class="form-group hidden" id="countries-div">
                 <label for="search-country" class="control-label">
                     Country
                 </label>
-                <select class="form-control" id="search-country" name="search-country">
+                <select class="form-control" id="search-country" name="search-country" id="">
                     <option value="">
                         &mdash;&nbsp;&nbsp;Select a country&nbsp;&nbsp;&mdash;
                     </option>
