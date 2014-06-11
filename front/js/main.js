@@ -57,7 +57,7 @@ function setContentAjaxFlow() {
 
 function loadPage(page) {
 
-    $('#content').load('./view/' + page + '.php',
+    $('#content').load('./handler/' + page + '.php',
         function(response) {
             setContentAjaxFlow();
             window[page + 'Callback']();
@@ -100,8 +100,11 @@ function addFormError($el, type) {
 *
 */
 
-function setGoogleMap(latitude, longitude) {
-    var map;
+function setGoogleMap() {
+    var map
+    ,   longitude = $('#map-canvas').data('longitude')
+    ,   latitude  = $('#map-canvas').data('latitude');
+    
     function initialize() {
         var mapOptions = {
         zoom: 8,
@@ -172,7 +175,7 @@ function listCallback() {
 
     setWriteReviewForm();
     
-    setGoogleMap(-34.397, 150.644);
+    setGoogleMap();
 }
 
 function setWriteReviewForm() {
