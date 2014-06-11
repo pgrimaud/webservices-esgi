@@ -1,4 +1,6 @@
 <?php
+require_once './lib/core.php';
 
-include_once './view/header.php';
-include_once './view/footer.php';
+    // OUTPUT
+    loadResource('view', 'header');
+    loadResource('view', 'footer');

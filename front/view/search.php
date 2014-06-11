@@ -7,23 +7,32 @@
                     Continent
                 </label>
                 <select class="form-control" id="search-continent" name="search-continent">
-                    <option value=""></option>
+                    <option value="">&mdash;&nbsp;&nbsp;Select a continent&nbsp;&nbsp;&mdash;</option>
+                <?php foreach ($data['search']['continent'] as $continentId => $continentName) : ?>
+                    <option value="<?php echo $continentId; ?>">
+                        <?php echo $continentName; ?>
+                    </option>
+                <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group hidden">
                 <label for="search-country" class="control-label">
                     Country
                 </label>
                 <select class="form-control" id="search-country" name="search-country">
-                    <option value=""></option>
+                    <option value="">
+                        &mdash;&nbsp;&nbsp;Select a country&nbsp;&nbsp;&mdash;
+                    </option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group hidden">
                 <label for="search-town" class="control-label">
                     Town
                 </label>
                 <select class="form-control" id="search-town" name="search-town">
-                    <option value=""></option>
+                    <option value="">
+                        &mdash;&nbsp;&nbsp;Select a town&nbsp;&nbsp;&mdash;
+                    </option>
                 </select>
             </div>
         </form>
@@ -35,72 +44,52 @@
     </div>
     
     <div class="col-md-7 col-md-offset-2">
+    <?php foreach ($data['emplacements'] as $emplacement) : ?>
         <div class="row">
             <div class="row">
                 <div class="col-md-4">
                     <div class="row">
-                        <h2>Abidjan Airport</h2>
+                        <h2><?php echo $emplacement['title']; ?></h2>
+                        <?php if (! empty($emplacement['address'])) : ?>
                         <address class="text-muted">
-                            123 Avenue de l'Indépendance
+                            <?php echo $emplacement['address']; ?>
                         </address>
+                        <?php endif; ?>
                     </div>
                     <div class="row">
                         <div class="text-warning">
+                        <?php for ($i = 1; $i <= 5; $i ++) : ?>
+                            <?php if ($i <= $emplacement['rate']) : ?>
                             <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
+                            <?php else : ?>
                             <span class="glyphicon glyphicon-star-empty"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <?php endif; ?>
+                        <?php endfor; ?>
                         </div>
                         <div class="pull-right">
                             <span class="label label-default">
-                                2 reviews
+                                <?php if ($emplacement['reviews'] === 0) : ?>
+                                no review yet
+                                <?php elseif ($emplacement['reviews'] === 1) : ?>
+                                1 review
+                                <?php else : ?>
+                                <?php echo $emplacement['reviews']; ?> reviews
+                                <?php endif; ?>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-md-offset-1">
+                    <?php if (! empty($emplacement['description'])) : ?>
                     <p class="small">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non lorem arcu. Nullam vehicula viverra cursus. Aliquam non laoreet lectus. Suspendisse in euismod diam, vitae sollicitudin neque. Nullam molestie mi eu ante fringilla, in dapibus purus eleifend. Morbi malesuada porta nisl. Proin sed urna eu libero varius blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin sit amet augue at metus rutrum semper. Sed a faucibus libero.
+                        <?php echo $emplacement['description']; ?>
                     </p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
-        
         <hr>
-        
-        <div class="row">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="row">
-                        <h2>Abidjan Airport</h2>
-                        <address class="text-muted">
-                            123 Avenue de l'Indépendance
-                        </address>
-                    </div>
-                    <div class="row">
-                        <div class="text-warning">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                        </div>
-                        <div class="pull-right">
-                            <span class="label label-default">
-                                2 reviews
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-md-offset-1">
-                    <p class="small">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non lorem arcu. Nullam vehicula viverra cursus. Aliquam non laoreet lectus. Suspendisse in euismod diam, vitae sollicitudin neque. Nullam molestie mi eu ante fringilla, in dapibus purus eleifend. Morbi malesuada porta nisl. Proin sed urna eu libero varius blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin sit amet augue at metus rutrum semper. Sed a faucibus libero.
-                    </p>
-                </div>
-            </div>
-        </div>
-        
+    <?php endforeach; ?>
     </div>
 
 </div>

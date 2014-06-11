@@ -1,30 +1,42 @@
 <div class="row">
 
     <div class="col-md-4">
-        <h1 class="text-primary">Abidjan Airport</h1>
+        <h1 class="text-primary"><?php echo $data['emplacement']['title']; ?></h1>
         <address class="text-muted">
-            <strong>123 Avenue de l'Indépendance</strong>
+            <?php if (! empty($data['emplacement']['address'])) : ?>
+            <strong><?php $data['emplacement']['address']; ?></strong>
+            <?php endif; ?>
             <p>
-                Abidjan&mdash;Côte d'Ivoire
+                <?php echo $data['emplacement']['town']; ?>
+                &mdash;
+                <?php echo $data['emplacement']['country']; ?>
             </p>
         </address>
         <div class="col-md-12">
             <div class="pull-left text-warning" style="font-size: 2em;">
+            <?php for ($i = 1; $i <= 5; $i ++) : ?>
+                <?php if ($i <= $data['emplacement']['rate']) : ?>
                 <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
+                <?php else : ?>
                 <span class="glyphicon glyphicon-star-empty"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
+                <?php endif; ?>
+            <?php endfor; ?>
             </div>
             <div class="pull-right">
                 <span class="label label-default">
-                    2 reviews
+                    <?php if ($data['emplacement']['reviews'] === 0) : ?>
+                    no review yet
+                    <?php elseif ($data['emplacement']['reviews'] === 1) : ?>
+                    1 review
+                    <?php else : ?>
+                    <?php echo $data['emplacement']['reviews']; ?> reviews
+                    <?php endif; ?>
                 </span>
             </div>
         </div>
         <div class="col-md-12" style="margin-top: 32px;">
             <div class="thumbnail">
-                <div id="map-canvas"></div>
+                <div id="map-canvas" data-longitude="<?php echo $data['emplacement']['longitude']; ?>" data-latitude="<?php echo $data['emplacement']['latitude']; ?>"></div>
                 <a class="btn btn-block btn-success" data-toggle="modal" data-target="#modal-write-review">
                     Share your review !
                 </a>
@@ -33,46 +45,28 @@
     </div>
     
     <div class="col-md-7 col-md-offset-1">
+    <?php foreach ($data['reviews'] as $review) : ?>
         <div class="row">
-            <h2>Review from de Michel Dupont</h2>
+            <h2>Review from de <?php echo $review['from']; ?></h2>
             <div class="text-warning">
+            <?php for ($i = 1; $i <= 5; $i ++) : ?>
+                <?php if ($i <= $review['rate']) : ?>
                 <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
+                <?php else : ?>
                 <span class="glyphicon glyphicon-star-empty"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
+                <?php endif; ?>
+            <?php endfor; ?>
             </div>
             <div class="col-md-10" style="margin-top: 16px;">
+                <?php if (! empty($review['content'])) : ?>
                 <p class="small">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non lorem arcu. Nullam vehicula viverra cursus. Aliquam non laoreet lectus. Suspendisse in euismod diam, vitae sollicitudin neque. Nullam molestie mi eu ante fringilla, in dapibus purus eleifend. Morbi malesuada porta nisl. Proin sed urna eu libero varius blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin sit amet augue at metus rutrum semper. Sed a faucibus libero.
+                    <?php echo $review['content']; ?>
                 </p>
-                <p class="small">
-                    Maecenas eu elit vitae tortor pretium volutpat in eget nibh. Cras euismod odio augue, eu sollicitudin magna posuere et. Sed at mi adipiscing, dictum leo vel, rutrum velit. Nam dignissim dictum neque. Aliquam bibendum rhoncus aliquet. Morbi fringilla sit amet massa eget porta. Morbi egestas ultricies orci eu sagittis. 
-                </p>
+                <?php endif; ?>
             </div>
         </div>
-        
         <hr>
-        
-        <div class="row">
-            <h2>Review from Michel Dupont</h2>
-            <div class="text-warning">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-            </div>
-            <div class="col-md-10" style="margin-top: 16px;">
-                <p class="small">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non lorem arcu. Nullam vehicula viverra cursus. Aliquam non laoreet lectus. Suspendisse in euismod diam, vitae sollicitudin neque. Nullam molestie mi eu ante fringilla, in dapibus purus eleifend. Morbi malesuada porta nisl. Proin sed urna eu libero varius blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin sit amet augue at metus rutrum semper. Sed a faucibus libero.
-                </p>
-                <p class="small">
-                    Maecenas eu elit vitae tortor pretium volutpat in eget nibh. Cras euismod odio augue, eu sollicitudin magna posuere et. Sed at mi adipiscing, dictum leo vel, rutrum velit. Nam dignissim dictum neque. Aliquam bibendum rhoncus aliquet. Morbi fringilla sit amet massa eget porta. Morbi egestas ultricies orci eu sagittis. 
-                </p>
-            </div>
-        </div>
-        
+    <?php endforeach; ?>
     </div>
 
 </div>
