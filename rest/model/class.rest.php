@@ -4,13 +4,23 @@ class Rest{
 	
 	public $header = "<?xml version='1.0' ?>\n";
 	public $params = array();
+	public $get = array();
 	
 	public function __construct(){
+		
+		$this->get = $_GET;
 		
 		$request_method = $_SERVER['REQUEST_METHOD'];
 		$this->params = explode('/', $_SERVER['REQUEST_URI']);
 		
-		$method = strtolower($request_method).ucwords($this->params[1]);
+		if(isset($_GET)){
+			$tmp = explode('?', $this->params[1]);
+			$param = $tmp[0];
+		}else{
+			$param = $this->params[1];
+		}
+		
+		$method = strtolower($request_method).ucwords($param);
 			
 		if(method_exists($this, $method)){
 			$this->$method();
@@ -21,15 +31,35 @@ class Rest{
 	
 	public function getCountries(){
 		
-		if(sizeof($this->params) != 3)
+		if(sizeof($this->params) != 2)
 			$this->error('Wrong parameters');
+				
+		$filters = array('name', 'code', 'continent');
 		
-		$continents = array( 4 => 'europe', 1 => 'africa', 5 => 'oceania', 2 => 'america', 3 => 'asia');
+		$error = false;
+		$filter = ' WHERE ';
+		$hasfilter = false;
 		
-		if(!isset($continents[$this->params[2]]))
-			$this->error('Unknow continent');
+		if(sizeof($this->get) > 0){
+			foreach($this->get as $field => $value){
+				if(!in_array($field, $filters)){
+					$error = 'Unknow filter : '.$field;
+				}else{
+					$filter.= " ".addslashes($field)." = '".addslashes($value)."' AND ";
+					$hasfilter = true;
+				}
+			}
+		}
 		
-		Connexion::getInstance()->query("SELECT * FROM country WHERE continent = '".addslashes($continents[$this->params[2]])."' ORDER BY name");
+		$filter = substr($filter, 0, -4);
+		
+		if($error != false)
+			$this->error($error);
+		
+		if($hasfilter == true)
+			$hasfilter = $filter;
+		
+		Connexion::getInstance()->query("SELECT * FROM country ".$hasfilter);
 		$countries = Connexion::getInstance()->fetchAll();
 		
 		$xml = new SimpleXMLElement($this->header.'<countries></countries>');
@@ -44,7 +74,34 @@ class Rest{
 		
 	}
 	
-	public function getTowns(){
+	public function getCountry(){
+		
+		if(sizeof($this->params) != 3)
+			$this->error('Wrong parameters');
+				
+		//check if country exist
+		Connexion::getInstance()->query("SELECT id FROM country WHERE id = '".addslashes($this->params[2])."'");
+		$id = Connexion::getInstance()->result();
+		
+		if($id == '')
+			$this->error('Unknow country ID '.addslashes($this->params[2]));
+		
+		Connexion::getInstance()->query("SELECT * FROM country WHERE id = '".addslashes($this->params[2])."' ORDER BY name");
+		$countries = Connexion::getInstance()->fetchAll();
+		
+		$xml = new SimpleXMLElement($this->header.'<countries></countries>');
+		
+		foreach($countries as $country){
+			$cr = $xml->addChild('country');
+			foreach($country as $field => $value)
+				$cr->addChild($field, $value);
+		}
+		
+		echo $xml->asXML();
+		
+	}
+	
+	public function getTown(){
 		
 		if(sizeof($this->params) != 3)
 			$this->error('Wrong parameters');
@@ -71,7 +128,7 @@ class Rest{
 		
 	}
 	
-	public function getPlaces(){
+	public function getPlace(){
 		
 		if(sizeof($this->params) != 3)
 			$this->error('Wrong parameters');
@@ -99,6 +156,10 @@ class Rest{
 	}
 	
 	public function postPlaces(){
+	
+	}
+	
+	public function filters(){
 	
 	}
 	
