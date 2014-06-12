@@ -7,10 +7,8 @@ require_once '../lib/core.php';
 require_once '../../soap/client.php';
 
 if(isset($_POST["addReview"]) && $_POST["addReview"]) {
-    print_r($_POST);
-    exit;
-
-
+    $soapClient = new EsgiSoapClient();
+    $soapClient->AddReview($_POST["place_id"], $_POST["name"], $_POST["review"], $_POST["note"]);
 }
 
 // Dependency injection

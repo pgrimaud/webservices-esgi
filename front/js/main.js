@@ -212,16 +212,16 @@ function setWriteReviewForm() {
         $submit.addClass('disabled');
 
         jQuery.post(
-            '../handler/list.php',
+            'handler/list.php',
             {
                 "addReview": true,
-                "place_id": $place_id,
-                "name": $name,
-                "note": $note,
-                "review": $review
+                "place_id": $place_id.val(),
+                "name": $name.val(),
+                "note": $note.val(),
+                "review": $review.val()
             },
             function(data) {
-                console.log(data)
+                $("#modal-write-review").modal("hide");
             }
         )
 
