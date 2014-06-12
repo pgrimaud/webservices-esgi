@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<reviews xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd"><review><id_area>1</id_area><author>Jerome</author><content>Super endroit, mais trop de pigeon!</content><rate>5</rate></review><review><id_area>1</id_area><author>Pierre</author><content>Cool mais pas trop</content><rate>4</rate></review></reviews>
