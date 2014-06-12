@@ -245,33 +245,6 @@ class Rest{
 		
 	}
 		
-	/*public function getPlace(){
-		
-		if(sizeof($this->params) != 3)
-			$this->error('Wrong parameters');
-		
-		//check if country exist
-		Connexion::getInstance()->query("SELECT id FROM place WHERE town_id = '".addslashes($this->params[2])."'");
-		$id = Connexion::getInstance()->result();
-
-		if($id == '')
-			$this->error('Unknow town ID '.addslashes($this->params[2]));
-				
-		Connexion::getInstance()->query("SELECT * FROM place WHERE town_id = '".addslashes($this->params[2])."' ORDER BY id");
-		$places = Connexion::getInstance()->fetchAll();
-		
-		$xml = new SimpleXMLElement($this->header.'<places></places>');
-		
-		foreach($places as $place){
-			$cr = $xml->addChild('place');
-			foreach($place as $field => $value)
-				$cr->addChild($field, $value);
-		}
-		
-		echo $xml->asXML();
-		
-	}*/
-	
 	public function postPlaces(){
 	
 	}
