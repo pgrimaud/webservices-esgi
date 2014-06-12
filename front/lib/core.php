@@ -4,8 +4,8 @@
 *
 */
 
-// define('FRONT', $_SERVER['DOCUMENT_ROOT'] . 'EB1/XML/');
-define('FRONT', '/home/nims/workspace/webservices-esgi/front/');
+define('FRONT', $_SERVER['DOCUMENT_ROOT'] . '/');
+//define('FRONT', '/home/nims/workspace/webservices-esgi/front/');
 
 /**
 *   Load a resource

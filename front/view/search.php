@@ -19,13 +19,13 @@
                 <label for="search-country" class="control-label">
                     Country
                 </label>
-                <select class="form-control" id="search-country" name="search-country" disabled="disabled">
+                <select class="form-control" id="search-country" name="search-country" disabled="disabled" onchange="loadTowns($(this, 'option:selected').val())">
                     <option value="">
                         &mdash;&nbsp;&nbsp;Select a country&nbsp;&nbsp;&mdash;
                     </option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="towns-div">
                 <label for="search-town" class="control-label">
                     Town
                 </label>

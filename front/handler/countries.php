@@ -1,6 +1,6 @@
 <?php
 /**
-*   Handler: getcountries
+*   Handler: countries
 *
 */
 require_once '../lib/core.php';
