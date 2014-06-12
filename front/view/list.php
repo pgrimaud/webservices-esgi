@@ -43,14 +43,14 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-7 col-md-offset-1">
     <?php foreach ($data['reviews'] as $review) : ?>
         <div class="row">
-            <h2>Review from de <?php echo $review['from']; ?></h2>
+            <h2>Review from <?php echo $review['author']; ?></h2>
             <div class="text-warning">
             <?php for ($i = 1; $i <= 5; $i ++) : ?>
-                <?php if ($i <= $review['rate']) : ?>
+                <?php if ($i <= $review['rate'] / 2) : ?>
                 <span class="glyphicon glyphicon-star"></span>
                 <?php else : ?>
                 <span class="glyphicon glyphicon-star-empty"></span>
@@ -94,12 +94,16 @@
                     </label>
                     <select class="form-control" id="note" name="note">
                         <option value=""></option>
-                        <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">8</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -7,7 +7,7 @@ function setMenuAjaxFlow() {
     $('#top-bar-menu a.link-ajax').each(function(){
         $(this).bind('click', function(evt){
             evt.preventDefault();
-            page = evt.delegateTarget.attributes[1].nodeValue;
+            page = $(this).attr("href")
             loadPage(page);
         });
     });
@@ -18,24 +18,24 @@ function setMenuActiveItem(page) {
     $('#main-menu li, #main-menu- ul').each(function(){
         $(this).removeClass('active');
     });
-    
+
     $('#main-menu > ul > li').each(function(){
         $(this).removeClass('active');
     });
-    
+
     switch (page) {
         case 'search' :
             $('#menu-search').addClass('active');
             break;
-            
-        case 'list' : 
+
+        case 'list' :
             $('#menu-top-places-abidjan').addClass('active').parent().parent().addClass('active');
             break;
     }
 }
 
 function generalCallback() {
-    
+
     setMenuAjaxFlow();
     loadPage('search');
 }
@@ -63,7 +63,7 @@ function loadPage(page) {
             window[page + 'Callback']();
         }
     );
-    
+
 }
 
 /**
@@ -83,13 +83,13 @@ function resetFormErrors($form) {
 function addFormError($el, type) {
     var str = '> '
     ,   $msg = $('<span class="text-danger">');
-    
+
     switch (type) {
         case 'required':
             str += "This field is required";
             break;
     }
-    
+
     $msg.html(str);
     $el.parent().children('label').eq(0).append($msg);
     $el.parent().addClass('has-error');
@@ -104,7 +104,7 @@ function setGoogleMap() {
     var map
     ,   longitude = $('#map-canvas').data('longitude')
     ,   latitude  = $('#map-canvas').data('latitude');
-    
+
     function initialize() {
         var mapOptions = {
         zoom: 8,
@@ -122,7 +122,7 @@ function setGoogleMap() {
 *
 */
 function searchCallback() {
-    
+
     setAddEmplacementForm();
 }
 
@@ -139,7 +139,7 @@ function setAddEmplacementForm() {
         $form.submit();
         return false;
     });
-    
+
     $form.bind('submit', function(){
         resetFormErrors($form);
 
@@ -155,14 +155,14 @@ function setAddEmplacementForm() {
         if ($description.val() === '') {
             addFormError($description, 'required');
         }
-        
+
         if (formHasErrors($form)) {
             return false;
         }
 
         $submit.addClass('disabled');
-        
-        return false;    
+
+        return false;
     });
 }
 
@@ -174,13 +174,14 @@ function setAddEmplacementForm() {
 function listCallback() {
 
     setWriteReviewForm();
-    
+
     setGoogleMap();
 }
 
 function setWriteReviewForm() {
     var $form = $('#form-create-review')
     ,   $submit = $('#form-create-review-submit')
+    ,   $place_id = $("#place_id")
     ,   $name = $('#name')
     ,   $note = $('#note')
     ,   $review = $('#review');
@@ -203,19 +204,33 @@ function setWriteReviewForm() {
         if ($review.val() === '') {
             addFormError($review, 'required');
         }
-        
-        if (formHasErrors()) {
+
+        if (formHasErrors($form)) {
             return false;
         }
 
         $submit.addClass('disabled');
-        
-        return false;    
+
+        jQuery.post(
+            '../handler/list.php',
+            {
+                "addReview": true,
+                "place_id": $place_id,
+                "name": $name,
+                "note": $note,
+                "review": $review
+            },
+            function(data) {
+                console.log(data)
+            }
+        )
+
+        return false;
     });
 }
 
-/** 
-	Search page
+/**
+   Search page
 **/
 
 function loadCountries(id){
@@ -226,5 +241,4 @@ function loadCountries(id){
             $('#countries-div select').removeAttr('disabled');
         }
     );
-	
 }

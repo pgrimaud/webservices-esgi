@@ -4,7 +4,8 @@
 *
 */
 
-define('FRONT', $_SERVER['DOCUMENT_ROOT'] . '/');
+// define('FRONT', $_SERVER['DOCUMENT_ROOT'] . 'EB1/XML/');
+define('FRONT', '/home/nims/workspace/webservices-esgi/front/');
 
 /**
 *   Load a resource
@@ -22,7 +23,7 @@ function loadResource($type, $resource, $data = NULL)
             $path = FRONT . 'view/' . $resource . '.php';
             break;
     }
-    
+
     if ($path)
         require_once $path;
 }
