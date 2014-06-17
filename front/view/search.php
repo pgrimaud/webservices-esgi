@@ -29,7 +29,7 @@
                 <label for="search-town" class="control-label">
                     Town
                 </label>
-                <select class="form-control" id="search-town" name="search-town" disabled="disabled">
+                <select class="form-control" id="search-town" name="search-town" disabled="disabled" onchange="loadPlaces($(this, 'option:selected').val())">
                     <option value="">
                         &mdash;&nbsp;&nbsp;Select a town&nbsp;&nbsp;&mdash;
                     </option>
@@ -43,53 +43,59 @@
         </div>
     </div>
     
-    <div class="col-md-7 col-md-offset-2">
-    <?php foreach ($data['emplacements'] as $emplacement) : ?>
-        <div class="row">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="row">
-                        <h2><?php echo $emplacement['title']; ?></h2>
-                        <?php if (! empty($emplacement['address'])) : ?>
-                        <address class="text-muted">
-                            <?php echo $emplacement['address']; ?>
-                        </address>
-                        <?php endif; ?>
-                    </div>
-                    <div class="row">
-                        <div class="text-warning">
-                        <?php for ($i = 1; $i <= 5; $i ++) : ?>
-                            <?php if ($i <= $emplacement['rate']) : ?>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <?php else : ?>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-                        </div>
-                        <div class="pull-right">
-                            <span class="label label-default">
-                                <?php if ($emplacement['reviews'] === 0) : ?>
-                                no review yet
-                                <?php elseif ($emplacement['reviews'] === 1) : ?>
-                                1 review
-                                <?php else : ?>
-                                <?php echo $emplacement['reviews']; ?> reviews
-                                <?php endif; ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-md-offset-1">
-                    <?php if (! empty($emplacement['description'])) : ?>
-                    <p class="small">
-                        <?php echo $emplacement['description']; ?>
-                    </p>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-        <hr>
-    <?php endforeach; ?>
+    <div class="col-md-7 col-md-offset-2" id="places">
+		<?php if(sizeof($data['emplacements']) > 0): ?>
+			<?php foreach ($data['emplacements'] as $emplacement) : ?>
+					<div class="row">
+							<div class="row">
+									<div class="col-md-4">
+											<div class="row">
+													<h2><?php echo $emplacement['title']; ?></h2>
+													<?php if (! empty($emplacement['address'])) : ?>
+													<address class="text-muted">
+															<?php echo $emplacement['address']; ?>
+													</address>
+													<?php endif; ?>
+											</div>
+											<div class="row">
+													<div class="text-warning">
+													<?php for ($i = 1; $i <= 5; $i ++) : ?>
+															<?php if ($i <= $emplacement['rate']) : ?>
+															<span class="glyphicon glyphicon-star"></span>
+															<?php else : ?>
+															<span class="glyphicon glyphicon-star-empty"></span>
+															<?php endif; ?>
+													<?php endfor; ?>
+													</div>
+													<div class="pull-right">
+															<span class="label label-default">
+																	<?php if ($emplacement['reviews'] === 0) : ?>
+																	no review yet
+																	<?php elseif ($emplacement['reviews'] === 1) : ?>
+																	1 review
+																	<?php else : ?>
+																	<?php echo $emplacement['reviews']; ?> reviews
+																	<?php endif; ?>
+															</span>
+													</div>
+											</div>
+									</div>
+									<div class="col-md-6 col-md-offset-1">
+											<?php if (! empty($emplacement['description'])) : ?>
+											<p class="small">
+													<?php echo $emplacement['description']; ?>
+											</p>
+											<?php endif; ?>
+									</div>
+							</div>
+					</div>
+					<hr>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<div class="alert alert-warning">
+				Please choose a continent
+			</div>
+		<?php endif; ?>
     </div>
 
 </div>
@@ -109,7 +115,12 @@
                         Continent
                     </label>
                     <select class="form-control" id="continent" name="continent">
-                        <option value=""></option>
+                        <option value="">&mdash;&nbsp;&nbsp;Select a continent&nbsp;&nbsp;&mdash;</option>
+												<?php foreach ($data['search']['continent'] as $continentId => $continentName) : ?>
+													<option value="<?php echo $continentId; ?>">
+														<?php echo $continentName; ?>
+													</option>
+												<?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-group">

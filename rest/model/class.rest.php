@@ -178,8 +178,9 @@ class Rest{
 		if(sizeof($this->params) != 2)
 			$this->error('Wrong parameters');
 				
-		$filters = array('name', 'address', 'town_id');
+		$filters = array('name', 'address', 'town_id', 'continent', 'country_id');
 		
+		$join = false;
 		$error = false;
 		$filter = ' WHERE ';
 		$hasfilter = false;
@@ -189,7 +190,14 @@ class Rest{
 				if(!in_array($field, $filters)){
 					$error = 'Unknow filter : '.$field;
 				}else{
-					$filter.= " ".addslashes($field)." = '".addslashes($value)."' AND ";
+					//small fix
+					if($field == 'continent'){
+						$filter.= " c.".addslashes($field)." = '".addslashes($value)."' AND ";
+					}elseif($field == 'country_id'){
+						$filter.= " t.".addslashes($field)." = '".addslashes($value)."' AND ";
+					}else{
+						$filter.= " p.".addslashes($field)." = '".addslashes($value)."' AND ";
+					}
 					$hasfilter = true;
 				}
 			}
@@ -203,7 +211,7 @@ class Rest{
 		if($hasfilter == true)
 			$hasfilter = $filter;
 		
-		Connexion::getInstance()->query("SELECT * FROM place ".$hasfilter);
+		Connexion::getInstance()->query("SELECT p.* FROM place p LEFT JOIN town t ON t.id = p.town_id LEFT JOIN country c ON c.id = t.country_id ".$hasfilter);
 		$places = Connexion::getInstance()->fetchAll();
 		
 		$xml = new SimpleXMLElement($this->header.'<places></places>');

@@ -238,11 +238,18 @@ function loadCountries(id){
 	$('#towns-div select').attr('disabled', 'disabled');
 	$('#towns-div select').html('<option>&mdash;&nbsp;&nbsp;Select a town&nbsp;&nbsp;&mdash;</option>');
 	$('#countries-div select').load('./handler/countries.php?continent='+id,
-        function(response) {
-            setContentAjaxFlow();
-            $('#countries-div select').removeAttr('disabled');
-        }
-    );
+		function(response) {
+				setContentAjaxFlow();
+				$('#countries-div select').removeAttr('disabled');
+		}
+	);
+	
+	$('#places').load('./handler/places.php?continent='+id,
+		function(response) {
+				setContentAjaxFlow();
+				$('#countries-div select').removeAttr('disabled');
+		}
+	);
 }
 
 function loadTowns(id){
@@ -253,4 +260,19 @@ function loadTowns(id){
             $('#towns-div select').removeAttr('disabled');
         }
     );
+	$('#places').load('./handler/places.php?country_id='+id,
+		function(response) {
+				setContentAjaxFlow();
+				$('#countries-div select').removeAttr('disabled');
+		}
+	);
+}
+
+function loadPlaces(id){
+	$('#places').load('./handler/places.php?town_id='+id,
+		function(response) {
+				setContentAjaxFlow();
+				$('#countries-div select').removeAttr('disabled');
+		}
+	);
 }
