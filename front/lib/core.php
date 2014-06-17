@@ -13,7 +13,7 @@ define('FRONT', $_SERVER['DOCUMENT_ROOT'] . '/');
 *   @param  (string)    resource type
 *   @param  (string)    resource name
 *   @param  (array)     [optional] dependency injection
-*   @retunr (void)      -> require the resource
+*   @return (void)      -> require the resource
 */
 function loadResource($type, $resource, $data = NULL)
 {
