@@ -114,7 +114,7 @@
                     <label for="continent" class="control-label">
                         Continent
                     </label>
-                    <select class="form-control" id="continent" name="continent">
+                    <select class="form-control" id="continent" name="continent" onchange="modalLoadCountries($('option:selected', this).val())">
                         <option value="">&mdash;&nbsp;&nbsp;Select a continent&nbsp;&nbsp;&mdash;</option>
 												<?php foreach ($data['search']['continent'] as $continentId => $continentName) : ?>
 													<option value="<?php echo $continentId; ?>">
@@ -127,7 +127,7 @@
                     <label for="country" class="control-label">
                         Country
                     </label>
-                    <select class="form-control" id="country" name="country">
+                    <select class="form-control" id="country-modal" disabled="disabled" name="country" onchange="modalLoadTowns($(this, 'option:selected').val())">
                         <option value=""></option>
                     </select>
                 </div>
@@ -135,9 +135,33 @@
                     <label for="town" class="control-label">
                         Town
                     </label>
-                    <select class="form-control" id="town" name="town">
+                    <select class="form-control" id="town-modal" disabled="disabled" name="town">
                         <option value=""></option>
                     </select>
+                </div>
+								<div class="form-group">
+                    <label for="name" class="control-label">
+                        Name of the place
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" />
+                </div>
+								<div class="form-group">
+                    <label for="address" class="control-label">
+                        Address of the place
+                    </label>
+                    <input type="text" class="form-control" id="address" name="address" />
+                </div>
+								<div class="form-group">
+                    <label for="longitude" class="control-label">
+                        GPS Longitude
+                    </label>
+                    <input type="text" class="form-control" id="longitude" name="longitude" />
+                </div>
+								<div class="form-group">
+                    <label for="latitude" class="control-label">
+                        GPS Latitude
+                    </label>
+                    <input type="text" class="form-control" id="latitude" name="latitude" />
                 </div>
                 <div class="form-group">
                     <label for="description" class="control-label">

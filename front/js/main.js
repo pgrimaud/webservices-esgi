@@ -130,8 +130,12 @@ function setAddEmplacementForm() {
     var $form = $('#form-create-place')
     ,   $submit = $('#form-create-place-submit')
     ,   $continent = $('#continent')
-    ,   $country = $('#country')
-    ,   $town = $('#town')
+    ,   $country = $('#country-modal')
+    ,   $town = $('#town-modal')
+		,   $name = $('#name')
+		,   $address = $('#address')
+		,   $longitude = $('#longitude')
+		,   $latitude = $('#latitude')
     ,   $description = $('#description');
 
     $submit.bind('click', function(evt){
@@ -142,25 +146,52 @@ function setAddEmplacementForm() {
 
     $form.bind('submit', function(){
         resetFormErrors($form);
-
+				
+				var error = false;
+				
         if ($continent.val() === '') {
             addFormError($continent, 'required');
+						error = true;
         }
         if ($country.val() === '') {
             addFormError($country, 'required');
+						error = true;
         }
         if ($town.val() === '') {
             addFormError($town, 'required');
+						error = true;
+        }
+				if ($name.val() === '') {
+            addFormError($name, 'required');
+						error = true;
+        }
+				if ($address.val() === '') {
+            addFormError($address, 'required');
+						error = true;
+        }
+				if ($latitude.val() === '') {
+            addFormError($latitude, 'required');
+						error = true;
+        }
+				if ($longitude.val() === '') {
+            addFormError($longitude, 'required');
+						error = true;
         }
         if ($description.val() === '') {
             addFormError($description, 'required');
+						error = true;
         }
 
-        if (formHasErrors($form)) {
-            return false;
-        }
-
-        $submit.addClass('disabled');
+        if (error === false) {
+					$submit.addClass('disabled');
+					$.post('./handler/addplace.php',
+						$('#form-create-place').serialize()
+					, 
+					function(){
+						
+					}, "text");
+					return false;
+				}
 
         return false;
     });
@@ -239,14 +270,14 @@ function loadCountries(id){
 	$('#towns-div select').html('<option>&mdash;&nbsp;&nbsp;Select a town&nbsp;&nbsp;&mdash;</option>');
 	$('#countries-div select').load('./handler/countries.php?continent='+id,
 		function(response) {
-				setContentAjaxFlow();
+				//setContentAjaxFlow();
 				$('#countries-div select').removeAttr('disabled');
 		}
 	);
 	
 	$('#places').load('./handler/places.php?continent='+id,
 		function(response) {
-				setContentAjaxFlow();
+				//setContentAjaxFlow();
 				$('#countries-div select').removeAttr('disabled');
 		}
 	);
@@ -256,13 +287,13 @@ function loadTowns(id){
 	$('#towns-div select').attr('disabled', 'disabled');
 	$('#towns-div select').load('./handler/towns.php?country='+id,
         function(response) {
-            setContentAjaxFlow();
+            //setContentAjaxFlow();
             $('#towns-div select').removeAttr('disabled');
         }
     );
 	$('#places').load('./handler/places.php?country_id='+id,
 		function(response) {
-				setContentAjaxFlow();
+				//setContentAjaxFlow();
 				$('#countries-div select').removeAttr('disabled');
 		}
 	);
@@ -271,8 +302,32 @@ function loadTowns(id){
 function loadPlaces(id){
 	$('#places').load('./handler/places.php?town_id='+id,
 		function(response) {
-				setContentAjaxFlow();
+				//setContentAjaxFlow();
 				$('#countries-div select').removeAttr('disabled');
 		}
 	);
+}
+
+/**
+		modal load
+**/
+
+function modalLoadCountries(id){
+	$('#country-modal').attr('disabled', 'disabled');
+	$('#country-modal').load('./handler/countries.php?continent='+id,
+		function(response) {
+				//setContentAjaxFlow();
+				$('#country-modal').removeAttr('disabled');
+		}
+	);
+}
+
+function modalLoadTowns(id){
+	$('#town-modal').attr('disabled', 'disabled');
+	$('#town-modal').load('./handler/towns.php?country='+id,
+        function(response) {
+            //setContentAjaxFlow();
+            $('#town-modal').removeAttr('disabled');
+        }
+    );
 }
