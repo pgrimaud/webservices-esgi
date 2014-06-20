@@ -3,12 +3,14 @@
 class Rest{
 	
 	public $header = "<?xml version='1.0' ?>\n";
-	public $params = array();
-	public $get = array();
+	private $params = array();
+	private $get = array();
+	private $post = array();
 	
 	public function __construct(){
 		
 		$this->get = $_GET;
+		$this->post = $_POST;
 		
 		$request_method = $_SERVER['REQUEST_METHOD'];
 		$this->params = explode('/', $_SERVER['REQUEST_URI']);
@@ -253,8 +255,49 @@ class Rest{
 		
 	}
 		
-	public function postPlaces(){
+	public function postPlace(){
 	
+		$params = array('name' => addslashes($this->post['name']), 
+								'address' => addslashes($this->post['address']), 
+								'town_id' => addslashes($this->post['town']), 
+								'description' => addslashes($this->post['description']), 
+								'latitude' => addslashes($this->post['latitude']), 
+								'longitude' => addslashes($this->post['longitude']));
+		
+		$error = false;
+		
+		foreach($params as $param){
+			if($error === ''){
+				$error = true;
+			}
+		}
+		
+		if($error == true)
+			$this->error('Missing parameters');
+			
+			
+		Connexion::getInstance()->query("INSERT INTO `place` (name, address, town_id, description, latitude, longitude) 
+																	VALUES ('".$params['name']."', '".$params['address']."', '".$params['town_id']."', '".$params['description']."', '".$params['latitude']."', '".$params['longitude']."') ");
+		
+		//correctly inserted?
+		
+		Connexion::getInstance()->query("SELECT id FROM `place` WHERE name = '".$params['name']."'
+																			AND address = '".$params['address']."' 
+																			AND town_id = '".$params['town_id']."'
+																			AND description = '".$params['description']."'
+																			AND latitude = '".$params['latitude']."'
+																			AND longitude = '".$params['longitude']."' ");
+		
+		$id = Connexion::getInstance()->result();
+		
+		if((int)$id > 0){
+			$xml = new SimpleXMLElement($this->header.'<response></response>');
+			$xml->addChild('message', 'ok');
+			echo $xml->asXML();
+		}else{
+			$this->error('Internal error');
+		}
+		exit;
 	}
 	
 	public function filters(){

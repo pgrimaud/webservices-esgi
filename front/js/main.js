@@ -187,10 +187,15 @@ function setAddEmplacementForm() {
 					$.post('./handler/addplace.php',
 						$('#form-create-place').serialize()
 					, 
-					function(){
-						
+					function(data){
+						$submit.removeClass('disabled');
+						if(data == '1'){
+							$('#modal-add-emplacement').modal('hide');
+						}
 					}, "text");
 					return false;
+				}else{
+					$submit.removeClass('disabled');
 				}
 
         return false;
