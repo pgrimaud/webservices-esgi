@@ -4,20 +4,20 @@
 
     API server : http://sharetheworld.rest
 
-L'API est principalement RESTful. Les données sont exposées sous la forme d'URI qui représentent des ressources et peuvent être récupérés via des clients HTTP (comme les navigateurs web).
+L'API est principalement RESTful. Les donnÃ©es sont exposÃ©es sous la forme d'URI qui reprÃ©sentent des ressources et peuvent Ãªtre rÃ©cupÃ©rÃ©s via des clients HTTP (comme les navigateurs web).
 
-## Requêtes countries
+## RequÃªtes countries
 
-Ces requêtes permettent de récupérer des pays en fonction des paramètres.
+Ces requÃªtes permettent de rÃ©cupÃ©rer des pays en fonction des paramÃ¨tres.
 
-*Construction d'une requête standard*
+*Construction d'une requÃªte standard*
 
     GET Host+ /countries
     
     Host: sharetheworld.rest
     Method: GET
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <countries>
       <country>
@@ -29,7 +29,7 @@ Ces requêtes permettent de récupérer des pays en fonction des paramètres.
       (...)
     </countries>
 
-Il est possible d'affiner les recherches en plaçant les paramètres suivants:
+Il est possible d'affiner les recherches en plaÃ§ant les paramÃ¨tres suivants:
 
 
     GET Host+ /countries?continent=Europe
@@ -38,7 +38,7 @@ Il est possible d'affiner les recherches en plaçant les paramètres suivants:
     Method: GET
     Parameter : name | code | continent
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <countries>
       <country>
@@ -51,18 +51,18 @@ Il est possible d'affiner les recherches en plaçant les paramètres suivants:
     </countries>
 
 
-## Requêtes country
+## RequÃªtes country
 
-Ces requêtes permettent de récupérer un pays grâce à son id.
+Ces requÃªtes permettent de rÃ©cupÃ©rer un pays grÃ¢ce Ã  son id.
 
-*Construction d'une requête standard*
+*Construction d'une requÃªte standard*
 
     GET Host+ /country/:id
     
     Host: sharetheworld.rest
     Method: GET
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <countries>
       <country>
@@ -73,18 +73,18 @@ Ces requêtes permettent de récupérer un pays grâce à son id.
       </country>
     </countries>
 
-## Requêtes towns
+## RequÃªtes towns
 
-Ces requêtes permettent de récupérer des villes en fonction des paramètres.
+Ces requÃªtes permettent de rÃ©cupÃ©rer des villes en fonction des paramÃ¨tres.
 
-*Construction d'une requête standard*
+*Construction d'une requÃªte standard*
 
     GET Host+ /towns
     
     Host: sharetheworld.rest
     Method: GET
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <towns>
       <town>
@@ -96,7 +96,7 @@ Ces requêtes permettent de récupérer des villes en fonction des paramètres.
       (...)
     </towns>
 
-Il est possible d'affiner les recherches en plaçant les paramètres suivants:
+Il est possible d'affiner les recherches en plaÃ§ant les paramÃ¨tres suivants:
 
 
     GET Host+ /towns?country_id=1
@@ -105,7 +105,7 @@ Il est possible d'affiner les recherches en plaçant les paramètres suivants:
     Method: GET
     Parameter : name | population| country_id
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <towns>
       <town>
@@ -118,18 +118,18 @@ Il est possible d'affiner les recherches en plaçant les paramètres suivants:
     </towns>
 
 
-## Requêtes town
+## RequÃªtes town
 
-Ces requêtes permettent de récupérer une ville grâce à son id.
+Ces requÃªtes permettent de rÃ©cupÃ©rer une ville grÃ¢ce Ã  son id.
 
-*Construction d'une requête standard*
+*Construction d'une requÃªte standard*
 
     GET Host+ /town/:id
     
     Host: sharetheworld.rest
     Method: GET
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <towns>
       <town>
@@ -140,18 +140,18 @@ Ces requêtes permettent de récupérer une ville grâce à son id.
       </town>
     </towns>
 
-## Requêtes places
+## RequÃªtes places
 
-Ces requêtes permettent de récupérer des lieux en fonction des paramètres.
+Ces requÃªtes permettent de rÃ©cupÃ©rer des lieux en fonction des paramÃ¨tres.
 
-*Construction d'une requête standard*
+*Construction d'une requÃªte standard*
 
     GET Host+ /places
     
     Host: sharetheworld.rest
     Method: GET
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <places>
       <place>
@@ -166,7 +166,7 @@ Ces requêtes permettent de récupérer des lieux en fonction des paramètres.
       (...)
     </places>
 
-Il est possible d'affiner les recherches en plaçant les paramètres suivants:
+Il est possible d'affiner les recherches en plaÃ§ant les paramÃ¨tres suivants:
 
 
     GET Host+ /places?town_id=1
@@ -175,7 +175,7 @@ Il est possible d'affiner les recherches en plaçant les paramètres suivants:
     Method: GET
     Parameter : name | address| continent | country_id | town_id
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <places>
       <place>
@@ -191,18 +191,18 @@ Il est possible d'affiner les recherches en plaçant les paramètres suivants:
     </places>
 
 
-## Requêtes place
+## RequÃªtes place
 
-Ces requêtes permettent de récupérer un lieu grâce à son id.
+Ces requÃªtes permettent de rÃ©cupÃ©rer un lieu grÃ¢ce Ã  son id.
 
-*Construction d'une requête standard*
+*Construction d'une requÃªte standard*
 
     GET Host+ /place/:id
     
     Host: sharetheworld.rest
     Method: GET
 
-*Fichier retourné*
+*Fichier retournÃ©*
 
     <places>
       <place>
@@ -216,9 +216,9 @@ Ces requêtes permettent de récupérer un lieu grâce à son id.
       </place>
     </places>
 
-Ces requêtes permettent l'ajout d'un lieu. Tous les paramètres sont requis.
+Ces requÃªtes permettent l'ajout d'un lieu. Tous les paramÃ¨tres sont requis.
 
-*Construction d'une requête standard*
+*Construction d'une requÃªte standard*
 
     GET Host+ /place
     
@@ -229,7 +229,7 @@ Ces requêtes permettent l'ajout d'un lieu. Tous les paramètres sont requis.
 
 ## Erreurs
 
-Les erreurs sont retournées sous le format suivant
+Les erreurs sont retournÃ©es sous le format suivant
 
     <error>
        <message>Error Message</message>
