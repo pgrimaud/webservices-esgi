@@ -9,7 +9,7 @@ require_once '../lib/core.php';
 		$post = $_POST;
 	
     //set place
-		$xml = callWS('http://shareyourworld.rest/place', false, $_POST);
+		$xml = callWS('http://localhost/workspace/webservices-esgi/rest/place', false, $_POST);
 		$insert = new SimpleXMLElement($xml);
 
 		foreach($insert->message as $insert):

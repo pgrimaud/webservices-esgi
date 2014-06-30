@@ -12,7 +12,7 @@ require_once '../lib/core.php';
     $data = array();
     
     //get towns
-		$xml = callWS('http://shareyourworld.rest/towns?country_id='.$id);
+		$xml = callWS('http://localhost/workspace/webservices-esgi/rest/towns?country_id='.$id);
 		$towns = new SimpleXMLElement($xml);
 		
 		foreach($towns->town as $town)

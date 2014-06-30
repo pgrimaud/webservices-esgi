@@ -81,7 +81,7 @@
       </div>
       <div class="modal-body">
             <form method="post" action="" class="control-form" id="form-create-review">
-                <input type="hidden" name="place_id" id="place_id" value="1">
+            <input type="hidden" name="place_id" id="place_id" value="<?php echo $_GET["place"]; ?>">
                 <div class="form-group">
                     <label for="name" class="control-label">
                         Your name
@@ -100,7 +100,7 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                         <option value="6">6</option>
-                        <option value="7">8</option>
+                        <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
                         <option value="10">10</option>

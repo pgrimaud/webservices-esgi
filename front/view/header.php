@@ -43,8 +43,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Top places <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li id="menu-top-places-abidjan">
-                <a href="list" class="link-ajax">
-                    Abidjan Airport
+                <a href="list" data-place="11" class="link-ajax">
+                    Les Buttes de Chaumont
                 </a>
             </li>
           </ul>

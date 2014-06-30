@@ -1,10 +1,10 @@
-<?php if(sizeof($data['emplacements']) > 0): ?>		
-		<?php foreach ($data['emplacements'] as $emplacement) : ?>
+<?php if(sizeof($data['emplacements']) > 0): ?>
+        <?php foreach ($data['emplacements'] as $emplacement) : ?>
         <div class="row">
             <div class="row">
                 <div class="col-md-4">
                     <div class="row">
-                        <h2><?php echo $emplacement['title']; ?></h2>
+                        <h2><span class="yolo" data-href="list" data-place="<?php echo $emplacement['id']; ?>"><?php echo $emplacement['title']; ?></span></h2>
                         <?php if (! empty($emplacement['address'])) : ?>
                         <address class="text-muted">
                             <?php echo $emplacement['address']; ?>
@@ -45,8 +45,8 @@
         </div>
         <hr>
     <?php endforeach; ?>
-		<?php else: ?>
-			<div class="alert alert-warning">
-				No places
-			</div>
-		<?php endif; ?>
+        <?php else: ?>
+            <div class="alert alert-warning">
+                No places
+            </div>
+        <?php endif; ?>

@@ -4,7 +4,7 @@
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'loukai');
 define('DB_BASE', 'places');
 
 //path

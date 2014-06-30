@@ -554,7 +554,7 @@ class nusoap_base {
         if ($use == 'literal') {
           $xml .= "<$name$xmlns$atts>$pXml</$name>";
         } else {
-          $xml .= "<$name$xmlns$type_str$atts>$pXml</$name>";
+          @$xml .= "<$name$xmlns$type_str$atts>$pXml</$name>";
         }
         break;
       break;
